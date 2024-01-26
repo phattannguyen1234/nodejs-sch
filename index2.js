@@ -1,9 +1,5 @@
 const http = require('http');
 const url = require('url');
-const fs = require('fs');
-
-
-const data = fs.readFileSync(`${__dirname}/fibonnaci.html`,'utf-8');
 
 const server = http.createServer((req, res) => {
     const pathName = req.url;
@@ -12,14 +8,6 @@ const server = http.createServer((req, res) => {
     }else if (pathName ==='/product')
         {
             res.end('This is the PRODUCT');
-        }
-    else if (pathName ==='/fibo')
-        {
-            res.writeHead(200, {
-                'Content-type': 'text/html'
-              });
-            res.end(data);
-            console.log(data);
         }
     else {
         res.writeHead(404, {'Content-type': 'text/html',

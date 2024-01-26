@@ -1,0 +1,60 @@
+@startuml
+!theme crt-green
+
+state Server {
+    state ServerStart {
+        [*] --> Listening
+        Listening --> ServeOverview : / or /overview
+        Listening --> ServeProduct : /product
+        Listening --> ServeFibonacciPage : /fibo
+        Listening --> Serve404 : Other Paths
+        ServeOverview --> Listening
+        ServeProduct --> Listening
+        ServeFibonacciPage --> Listening
+        Serve404 --> Listening
+    }
+
+    state ServeOverview {
+        [*] --> ServingOverview
+        ServingOverview : show an overview text
+        ServingOverview --> [*]
+    }
+
+    state ServeProduct {
+        [*] --> ServingProduct
+        ServingProduct: show product text
+        ServingProduct --> [*]
+    }
+
+    state ServeFibonacciPage {
+        [*] --> ServingFibonacciPage
+        ServingFibonacciPage: show Fibonacci calculator page
+        ServingFibonacciPage --> [*]
+    }
+
+    state Serve404 {
+        [*] --> Serving404
+        Serving404: Page not found
+        Serving404 --> [*]
+    }
+}
+
+state Client {
+    state ClientStart {
+        [*] --> Idle
+        Idle --> WaitForInput
+        WaitForInput --> CalculateFibonacci : Button Click
+        CalculateFibonacci --> DisplayResult
+        DisplayResult --> Idle
+    }
+
+    Idle : User is viewing page
+    WaitForInput : User inputs number
+    CalculateFibonacci : Perform Fibonacci Calculation in Browser
+    DisplayResult : Display Fibonacci result
+}
+
+[*] -right--------> ServerStart 
+[*] -left-------> ClientStart
+
+@enduml
