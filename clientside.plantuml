@@ -1,0 +1,66 @@
+@startuml
+[*] --> ServerStart
+[*] --> ClientStart
+
+together {
+    state ServerStart {
+        [*] --> Listening
+        Listening --> ServeOverview : / or /overview
+        Listening --> ServeProduct : /product
+        Listening --> CalculateFibonacci : /fibo?number=
+        Listening --> Serve404 : Other Paths
+        ServeOverview --> Listening
+        ServeProduct --> Listening
+        CalculateFibonacci --> Listening
+        Serve404 --> Listening
+    }
+
+    state ClientStart {
+        [*] --> Idle
+        Idle --> WaitForInput
+        WaitForInput --> SendRequest : Button Click
+        SendRequest --> WaitForResponse
+        WaitForResponse --> DisplayResult : Response Received
+        WaitForResponse --> DisplayError : Error/No Response
+        DisplayResult --> Idle
+        DisplayError --> Idle
+    }
+}
+
+state ServeOverview {
+    [*] --> ServingOverview
+    ServingOverview : show a overview text
+    ServingOverview --> [*]
+}
+
+state ServeProduct {
+    [*] --> ServingProduct
+    ServingProduct: show product text
+    ServingProduct --> [*]
+}
+
+state CalculateFibonacci {
+    [*] --> CheckQuery
+    CheckQuery : Query number is present?
+    CheckQuery --> Calculate : Yes
+    CheckQuery --> SendStaticPage : No
+    Calculate : Perform Fibonacci Calculation
+    Calculate --> SendResult
+    SendResult --> [*]
+    SendStaticPage --> [*]
+}
+
+state Serve404 {
+    [*] --> Serving404
+    Serving404: Page not found
+    Serving404 --> [*]
+}
+
+Idle : User is viewing page
+WaitForInput : User inputs number
+SendRequest : Send AJAX request to server
+WaitForResponse : Waiting for server response
+DisplayResult : Display Fibonacci result
+DisplayError : Display error message
+
+@enduml
