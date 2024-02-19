@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Fibonacci Calculator</h2>
+    
+    <form id="fibonacciForm">
+        <label for="number">Enter a number:</label>
+        <input type="number" id="number" name="number" min="0" required>
+        <button type="button" id="button">Calculate</button>
+    </form>
+
+    <div id="result"></div>
+
+    <!-- <script>
+       document.getElementById('button').addEventListener('click', function() {
+            var xhr = new XMLHttpRequest();
+            var inputValue = document.getElementById('number').value;
+            xhr.open("GET", "http://localhost:8000/fibo?number=" + encodeURIComponent(inputValue), true);
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log('Response:', this.responseText);
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = this.response; 
+                }
+            };
+            xhr.send();
+        });
+
+        /*
+        // Display the result
+        const resultDiv = document.getElementById('result');
+        var dynamicData = "{{DYNAMIC_DATA}}"
+        if (dynamicData && dynamicData !== "{{DYNAMIC_DATA}}") {
+            resultDiv.innerHTML = dynamicData; 
+            // Code for when dynamic data is present
+        } 
+        resultDiv.innerHTML = dynamicData; 
+        */
+    </script> -->
+</body>
+</html>

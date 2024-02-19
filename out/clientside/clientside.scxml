@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><scxml xmlns="http://www.w3.org/2005/07/scxml" initial="start" version="1.0">
+    <state id="start">
+        <transition target="ServerStart"/>
+        <transition target="ClientStart"/>
+    </state>
+    <state id="startServerStart">
+        <transition target="Listening"/>
+    </state>
+    <state id="Listening">
+        <transition event="/ or /overview" target="ServeOverview"/>
+        <transition event="/product" target="ServeProduct"/>
+        <transition event="/fibo?number=" target="CalculateFibonacci"/>
+        <transition event="Other Paths" target="Serve404"/>
+    </state>
+    <state id="startServeOverview">
+        <transition target="ServingOverview"/>
+    </state>
+    <state id="ServingOverview">
+        <transition target="endServeOverview"/>
+    </state>
+    <state id="endServeOverview"/>
+    <state id="startServeProduct">
+        <transition target="ServingProduct"/>
+    </state>
+    <state id="ServingProduct">
+        <transition target="endServeProduct"/>
+    </state>
+    <state id="endServeProduct"/>
+    <state id="startCalculateFibonacci">
+        <transition target="CheckQuery"/>
+    </state>
+    <state id="CheckQuery">
+        <transition event="Yes" target="Calculate"/>
+        <transition event="No" target="SendStaticPage"/>
+    </state>
+    <state id="Calculate">
+        <transition target="SendResult"/>
+    </state>
+    <state id="SendStaticPage">
+        <transition target="endCalculateFibonacci"/>
+    </state>
+    <state id="SendResult">
+        <transition target="endCalculateFibonacci"/>
+    </state>
+    <state id="endCalculateFibonacci"/>
+    <state id="startServe404">
+        <transition target="Serving404"/>
+    </state>
+    <state id="Serving404">
+        <transition target="endServe404"/>
+    </state>
+    <state id="endServe404"/>
+    <state id="startClientStart">
+        <transition target="Idle"/>
+    </state>
+    <state id="Idle">
+        <transition target="WaitForInput"/>
+    </state>
+    <state id="WaitForInput">
+        <transition event="Button Click" target="SendRequest"/>
+    </state>
+    <state id="SendRequest">
+        <transition target="WaitForResponse"/>
+    </state>
+    <state id="WaitForResponse">
+        <transition event="Response Received" target="DisplayResult"/>
+        <transition event="Error/No Response" target="DisplayError"/>
+    </state>
+    <state id="DisplayResult">
+        <transition target="Idle"/>
+    </state>
+    <state id="DisplayError">
+        <transition target="Idle"/>
+    </state>
+</scxml>
